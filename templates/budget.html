@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Budget · My Little Budget</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family: "DM Sans", sans-serif;
+
+            background: #faf7f5;
+
+            color: #352f31;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+
+            padding: 22px 6%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background: rgba(255,255,255,0.88);
+
+            border-bottom: 1px solid #eee4e5;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+
+            backdrop-filter: blur(10px);
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .brand-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 12px;
+
+            background: #f1d8dd;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+
+        }
+
+
+        .brand h1 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 22px;
+
+            font-weight: 600;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 28px;
+
+        }
+
+
+        .nav-links a {
+
+            color: #776d70;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #b56f7d;
+
+        }
+
+
+        .nav-links .active {
+
+            color: #b56f7d;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .container {
+
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding: 55px 25px 70px;
+
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .page-header {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .small-label {
+
+            color: #b56f7d;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .page-header h2 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 42px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .page-header p {
+
+            color: #8b8083;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =========================
+           SET BUDGET CARD
+        ========================= */
+
+        .form-card {
+
+            background: white;
+
+            border: 1px solid #eee4e5;
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .form-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .form-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 13px;
+
+            background: #f7e9ec;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+
+        }
+
+
+        .form-header h3 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 21px;
+
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            color: #6f6366;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #e4dadd;
+
+            border-radius: 11px;
+
+            background: #fdfafa;
+
+            color: #352f31;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+
+        }
+
+
+        input:focus {
+
+            border-color: #c98292;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(201,130,146,0.10);
+
+        }
+
+
+        .save-button {
+
+            margin-top: 20px;
+
+            padding: 13px 22px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background: #b56f7d;
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .save-button:hover {
+
+            background: #a4606e;
+
+            transform: translateY(-2px);
+
+        }
+
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 17px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .stat {
+
+            background: white;
+
+            border: 1px solid #eee4e5;
+
+            border-radius: 20px;
+
+            padding: 23px;
+
+        }
+
+
+        .stat-label {
+
+            color: #8b8083;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .stat-value {
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .usage-card {
+
+            background: white;
+
+            border: 1px solid #eee4e5;
+
+            border-radius: 22px;
+
+            padding: 28px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .usage-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .usage-header h3 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 21px;
+
+        }
+
+
+        .usage-percent {
+
+            color: #b56f7d;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+        }
+
+
+        .progress-container {
+
+            width: 100%;
+
+            height: 16px;
+
+            background: #f0e7e8;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+        }
+
+
+        .progress {
+
+            height: 100%;
+
+            width: {{ budget_percentage }}%;
+
+            background: #b56f7d;
+
+            border-radius: 20px;
+
+            transition: width 0.5s ease;
+
+        }
+
+
+        .usage-text {
+
+            margin-top: 12px;
+
+            color: #96898d;
+
+            font-size: 12px;
+
+        }
+
+
+        /* =========================
+           BACK
+        ========================= */
+
+        .back-link {
+
+            display: inline-block;
+
+            color: #8b6b72;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .back-link:hover {
+
+            color: #b56f7d;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                padding: 18px 20px;
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+            }
+
+
+            .nav-links {
+
+                gap: 16px;
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .container {
+
+                padding: 40px 18px;
+
+            }
+
+
+            .page-header h2 {
+
+                font-size: 35px;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .usage-header {
+
+                align-items: flex-start;
+
+                gap: 10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navbar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ♡
+            </div>
+
+            <h1>
+                my little budget
+            </h1>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('transactions_page') }}">
+                Transactions
+            </a>
+
+            <a href="{{ url_for('add_transaction_page') }}">
+                Add Transaction
+            </a>
+
+            <a
+                href="{{ url_for('budget_page') }}"
+                class="active"
+            >
+                Budget
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="container">
+
+
+        <!-- HEADER -->
+
+        <section class="page-header">
+
+            <div class="small-label">
+                Take care of your money
+            </div>
+
+            <h2>
+                Monthly budget
+            </h2>
+
+            <p>
+                Set a spending limit and keep an eye on where your money goes.
+            </p>
+
+        </section>
+
+
+        <!-- FORM -->
+
+        <section class="form-card">
+
+
+            <div class="form-header">
+
+                <div class="form-icon">
+                    ♡
+                </div>
+
+                <h3>
+                    Set your budget
+                </h3>
+
+            </div>
+
+
+            <form method="POST">
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label for="month">
+                            Month
+                        </label>
+
+                        <input
+                            type="month"
+                            id="month"
+                            name="month"
+                            value="{{ current_month }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="amount">
+                            Budget amount (Rs.)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="amount"
+                            name="amount"
+                            min="0"
+                            step="0.01"
+                            placeholder="e.g. 30000"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+                    Save budget
+                </button>
+
+
+            </form>
+
+
+        </section>
+
+
+        <!-- STATS -->
+
+        <section class="stats">
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Monthly budget
+                </div>
+
+                <div class="stat-value">
+                    Rs. {{ "%.2f"|format(budget) }}
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Spent this month
+                </div>
+
+                <div class="stat-value">
+                    Rs. {{ "%.2f"|format(monthly_expenses) }}
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-label">
+                    Remaining
+                </div>
+
+                <div class="stat-value">
+                    Rs. {{ "%.2f"|format(remaining_budget) }}
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- USAGE -->
+
+        <section class="usage-card">
+
+
+            <div class="usage-header">
+
+                <h3>
+                    Budget usage
+                </h3>
+
+                <span class="usage-percent">
+                    {{ "%.1f"|format(budget_percentage) }}%
+                </span>
+
+            </div>
+
+
+            <div class="progress-container">
+
+                <div class="progress"></div>
+
+            </div>
+
+
+            <p class="usage-text">
+
+                You have used
+                {{ "%.1f"|format(budget_percentage) }}%
+                of your budget this month.
+
+            </p>
+
+
+        </section>
+
+
+        <a
+            class="back-link"
+            href="{{ url_for('home') }}"
+        >
+            ← Back to dashboard
+        </a>
+
+
+    </main>
+
+
+</body>
+
+</html>

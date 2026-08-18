@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Transactions · My Little Budget</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family: "DM Sans", sans-serif;
+
+            background: #faf7f5;
+
+            color: #352f31;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .navbar {
+
+            width: 100%;
+
+            padding: 22px 6%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background: rgba(255, 255, 255, 0.9);
+
+            border-bottom: 1px solid #eee4e5;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+
+            backdrop-filter: blur(10px);
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .brand-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 12px;
+
+            background: #f1d8dd;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+
+        }
+
+
+        .brand h1 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 22px;
+
+            font-weight: 600;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+        }
+
+
+        .nav-links a {
+
+            color: #776d70;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #b56f7d;
+
+        }
+
+
+        .nav-links .active {
+
+            color: #b56f7d;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 55px 25px 70px;
+
+        }
+
+
+        .small-label {
+
+            color: #b56f7d;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .page-header {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .page-header h2 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 42px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .page-header p {
+
+            color: #8b8083;
+
+            font-size: 15px;
+
+        }
+
+
+        /* =========================
+           TOP ACTIONS
+        ========================= */
+
+        .top-actions {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .transaction-count {
+
+            color: #8b8083;
+
+            font-size: 13px;
+
+        }
+
+
+        .add-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 12px 18px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            background: #b56f7d;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .add-button:hover {
+
+            background: #a4606e;
+
+            transform: translateY(-2px);
+
+        }
+
+
+        /* =========================
+           FILTER
+        ========================= */
+
+        .filter-card {
+
+            background: white;
+
+            border: 1px solid #eee4e5;
+
+            border-radius: 20px;
+
+            padding: 20px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .filter-form {
+
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .filter-group {
+
+            flex: 1;
+
+            min-width: 220px;
+
+        }
+
+
+        .filter-group label {
+
+            display: block;
+
+            color: #776d70;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .filter-group select {
+
+            width: 100%;
+
+            padding: 12px 14px;
+
+            border: 1px solid #e5dadd;
+
+            border-radius: 11px;
+
+            background: #fcf8f8;
+
+            color: #352f31;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            outline: none;
+
+        }
+
+
+        .filter-group select:focus {
+
+            border-color: #c98292;
+
+        }
+
+
+        .filter-button {
+
+            padding: 12px 18px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background: #b56f7d;
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+
+        .filter-button:hover {
+
+            background: #a4606e;
+
+        }
+
+
+        .clear-button {
+
+            padding: 11px 17px;
+
+            border-radius: 11px;
+
+            border: 1px solid #e5dadd;
+
+            background: white;
+
+            color: #776d70;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .clear-button:hover {
+
+            color: #a45e6c;
+
+            border-color: #c98292;
+
+        }
+
+
+        /* =========================
+           TABLE CARD
+        ========================= */
+
+        .table-card {
+
+            background: white;
+
+            border: 1px solid #eee4e5;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+        }
+
+
+        .table-header {
+
+            padding: 23px 25px;
+
+            border-bottom: 1px solid #eee4e5;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .table-header h3 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 21px;
+
+            font-weight: 600;
+
+        }
+
+
+        .table-header span {
+
+            color: #96898d;
+
+            font-size: 12px;
+
+        }
+
+
+        .table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 800px;
+
+        }
+
+
+        th {
+
+            text-align: left;
+
+            padding: 15px 20px;
+
+            background: #fcf8f8;
+
+            color: #8b8083;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        td {
+
+            padding: 17px 20px;
+
+            border-top: 1px solid #f1e9ea;
+
+            font-size: 13px;
+
+            color: #5e5558;
+
+        }
+
+
+        tbody tr {
+
+            transition: 0.15s ease;
+
+        }
+
+
+        tbody tr:hover {
+
+            background: #fdfafa;
+
+        }
+
+
+        .id {
+
+            color: #a99da0;
+
+            font-size: 12px;
+
+        }
+
+
+        .date {
+
+            color: #776d70;
+
+        }
+
+
+        /* =========================
+           TYPE BADGES
+        ========================= */
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .expense {
+
+            background: #f7e3e7;
+
+            color: #a45e6c;
+
+        }
+
+
+        .income {
+
+            background: #e9f3ed;
+
+            color: #648472;
+
+        }
+
+
+        /* =========================
+           CATEGORY
+        ========================= */
+
+        .category {
+
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 9px;
+
+            background: #f8f1f2;
+
+            color: #776d70;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .description {
+
+            max-width: 200px;
+
+            color: #8b8083;
+
+        }
+
+
+        .amount {
+
+            font-weight: 700;
+
+            color: #352f31;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =========================
+           ACTION BUTTONS
+        ========================= */
+
+        .actions-cell {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+        }
+
+
+        .edit-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 7px 11px;
+
+            border-radius: 8px;
+
+            background: #f7e9ec;
+
+            color: #a45e6c;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .edit-button:hover {
+
+            background: #f1d8dd;
+
+        }
+
+
+        .delete-button {
+
+            padding: 7px 11px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #f5eeee;
+
+            color: #a45e6c;
+
+            font-family: inherit;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+
+        .delete-button:hover {
+
+            background: #eedcdf;
+
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-state {
+
+            text-align: center;
+
+            padding: 65px 25px;
+
+        }
+
+
+        .empty-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            border-radius: 18px;
+
+            background: #f7e9ec;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin: 0 auto 18px;
+
+            font-size: 22px;
+
+        }
+
+
+        .empty-state h3 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 23px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .empty-state p {
+
+            color: #96898d;
+
+            font-size: 13px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                padding: 18px 20px;
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+                flex-direction: column;
+
+            }
+
+
+            .nav-links {
+
+                width: 100%;
+
+                gap: 16px;
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .container {
+
+                padding: 40px 18px 55px;
+
+            }
+
+
+            .page-header h2 {
+
+                font-size: 36px;
+
+            }
+
+
+            .top-actions {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+
+            .add-button {
+
+                width: 100%;
+
+            }
+
+
+            .filter-form {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .filter-group {
+
+                width: 100%;
+
+            }
+
+
+            .filter-button,
+
+            .clear-button {
+
+                width: 100%;
+
+                text-align: center;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav class="navbar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ♡
+            </div>
+
+            <h1>
+                my little budget
+            </h1>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('transactions_page') }}"
+                class="active"
+            >
+                Transactions
+            </a>
+
+            <a href="{{ url_for('add_transaction_page') }}">
+                Add Transaction
+            </a>
+
+            <a href="{{ url_for('budget_page') }}">
+                Budget
+            </a>
+
+        </div>
+
+
+    </nav>
+
+
+    <main class="container">
+
+
+        <!-- =========================
+             PAGE HEADER
+        ========================= -->
+
+        <section class="page-header">
+
+            <div class="small-label">
+                Your financial space
+            </div>
+
+            <h2>
+                Transactions
+            </h2>
+
+            <p>
+                A little history of where your money has been going.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             TOP ACTIONS
+        ========================= -->
+
+        <div class="top-actions">
+
+            <div class="transaction-count">
+
+                {{ transactions|length }}
+
+                {% if transactions|length == 1 %}
+                    transaction
+                {% else %}
+                    transactions
+                {% endif %}
+
+            </div>
+
+
+            <a
+                class="add-button"
+                href="{{ url_for('add_transaction_page') }}"
+            >
+                + Add transaction
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             FILTER
+        ========================= -->
+
+        <div class="filter-card">
+
+            <form
+                method="GET"
+                action="{{ url_for('transactions_page') }}"
+                class="filter-form"
+            >
+
+
+                <div class="filter-group">
+
+                    <label for="category">
+                        Filter by category
+                    </label>
+
+
+                    <select
+                        name="category"
+                        id="category"
+                    >
+
+                        <option value="">
+                            All categories
+                        </option>
+
+
+                        {% for category in categories %}
+
+                        <option
+                            value="{{ category }}"
+                            {% if selected_category == category %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ category }}
+                        </option>
+
+                        {% endfor %}
+
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="filter-button"
+                >
+                    Apply filter
+                </button>
+
+
+                <a
+                    href="{{ url_for('transactions_page') }}"
+                    class="clear-button"
+                >
+                    Clear
+                </a>
+
+
+            </form>
+
+        </div>
+
+
+        <!-- =========================
+             TRANSACTION TABLE
+        ========================= -->
+
+        <section class="table-card">
+
+
+            <div class="table-header">
+
+                <h3>
+                    Transaction history
+                </h3>
+
+                <span>
+                    {{ transactions|length }}
+                    records
+                </span>
+
+            </div>
+
+
+            {% if transactions %}
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Type
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Description
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for transaction in transactions %}
+
+
+                        <tr>
+
+
+                            <td class="id">
+                                #{{ transaction.id }}
+                            </td>
+
+
+                            <td class="date">
+                                {{ transaction.date }}
+                            </td>
+
+
+                            <td>
+
+                                {% if transaction.transaction_type == "Expense" %}
+
+                                <span class="badge expense">
+                                    ↓ Expense
+                                </span>
+
+                                {% else %}
+
+                                <span class="badge income">
+                                    ↑ Income
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="category">
+                                    {{ transaction.category }}
+                                </span>
+
+                            </td>
+
+
+                            <td class="description">
+
+                                {{ transaction.description or "-" }}
+
+                            </td>
+
+
+                            <td class="amount">
+
+                                Rs.
+                                {{ "%.2f"|format(transaction.amount) }}
+
+                            </td>
+
+
+                            <td>
+
+
+                                <div class="actions-cell">
+
+
+                                    <!-- EDIT -->
+
+                                    <a
+                                        class="edit-button"
+                                        href="{{ url_for('edit_transaction_page', transaction_id=transaction.id) }}"
+                                    >
+                                        Edit
+                                    </a>
+
+
+                                    <!-- DELETE -->
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('delete_transaction_page', transaction_id=transaction.id) }}"
+                                        onsubmit="return confirm('Are you sure you want to delete this transaction?');"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="delete-button"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+            {% else %}
+
+
+            <!-- EMPTY STATE -->
+
+            <div class="empty-state">
+
+
+                <div class="empty-icon">
+                    ♡
+                </div>
+
+
+                <h3>
+                    Nothing here yet
+                </h3>
+
+
+                <p>
+                    No transactions were found for this category.
+                </p>
+
+
+                <a
+                    href="{{ url_for('add_transaction_page') }}"
+                    class="add-button"
+                >
+                    + Add your first transaction
+                </a>
+
+
+            </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

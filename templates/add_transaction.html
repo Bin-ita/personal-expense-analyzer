@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Add Transaction · My Little Budget</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            font-family: "DM Sans", sans-serif;
+
+            background: #faf7f5;
+
+            color: #352f31;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .navbar {
+
+            width: 100%;
+
+            padding: 22px 6%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background: rgba(255, 255, 255, 0.85);
+
+            border-bottom: 1px solid #eee4e5;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+
+            backdrop-filter: blur(10px);
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .brand-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 12px;
+
+            background: #f1d8dd;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+
+        }
+
+
+        .brand h1 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 22px;
+
+            font-weight: 600;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 28px;
+
+        }
+
+
+        .nav-links a {
+
+            color: #776d70;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #b56f7d;
+
+        }
+
+
+        .nav-links .active {
+
+            color: #b56f7d;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .container {
+
+            max-width: 800px;
+
+            margin: 0 auto;
+
+            padding: 55px 25px 70px;
+
+        }
+
+
+        .page-header {
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .small-label {
+
+            color: #b56f7d;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .page-header h2 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 42px;
+
+            font-weight: 600;
+
+            margin-bottom: 9px;
+
+        }
+
+
+        .page-header p {
+
+            color: #8b8083;
+
+            font-size: 15px;
+
+        }
+
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .form-card {
+
+            background: white;
+
+            border: 1px solid #eee4e5;
+
+            border-radius: 24px;
+
+            padding: 34px;
+
+            box-shadow:
+                0 15px 45px
+                rgba(82, 57, 62, 0.05);
+
+        }
+
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 21px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #544a4d;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            height: 48px;
+
+            border: 1px solid #e5dadd;
+
+            border-radius: 12px;
+
+            background: #fdfafa;
+
+            padding: 0 14px;
+
+            font-family: "DM Sans", sans-serif;
+
+            font-size: 14px;
+
+            color: #40373a;
+
+        }
+
+
+        input::placeholder {
+
+            color: #b4aaad;
+
+        }
+
+
+        input:focus,
+        select:focus {
+
+            outline: none;
+
+            border-color: #c98292;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(201, 130, 146, 0.10);
+
+        }
+
+
+        /* =========================
+           TYPE SELECTOR
+        ========================= */
+
+        .type-options {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+        }
+
+
+        .type-option {
+
+            position: relative;
+
+        }
+
+
+        .type-option input {
+
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+        }
+
+
+        .type-label {
+
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: 1px solid #e5dadd;
+
+            border-radius: 12px;
+
+            background: #fdfafa;
+
+            color: #776d70;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .type-label:hover {
+
+            border-color: #d5a7b0;
+
+        }
+
+
+        .type-option input:checked + .type-label {
+
+            background: #f7e5e8;
+
+            border-color: #c98292;
+
+            color: #a45e6c;
+
+        }
+
+
+        /* =========================
+           DESCRIPTION
+        ========================= */
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 105px;
+
+            resize: vertical;
+
+            border: 1px solid #e5dadd;
+
+            border-radius: 12px;
+
+            background: #fdfafa;
+
+            padding: 13px 14px;
+
+            font-family: "DM Sans", sans-serif;
+
+            font-size: 14px;
+
+            color: #40373a;
+
+        }
+
+
+        textarea::placeholder {
+
+            color: #b4aaad;
+
+        }
+
+
+        textarea:focus {
+
+            outline: none;
+
+            border-color: #c98292;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(201, 130, 146, 0.10);
+
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .buttons {
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 8px;
+
+        }
+
+
+        .save-button {
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #b56f7d;
+
+            color: white;
+
+            padding: 0 25px;
+
+            font-family: "DM Sans", sans-serif;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .save-button:hover {
+
+            background: #a4606e;
+
+            transform: translateY(-2px);
+
+        }
+
+
+        .cancel-button {
+
+            height: 48px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 0 22px;
+
+            border-radius: 12px;
+
+            background: #f5eeee;
+
+            color: #776d70;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .cancel-button:hover {
+
+            background: #eee4e5;
+
+        }
+
+
+        /* =========================
+           SMALL NOTE
+        ========================= */
+
+        .form-note {
+
+            margin-top: 22px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid #f0e8e9;
+
+            color: #9a8e91;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                padding: 18px 20px;
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+                flex-direction: column;
+
+            }
+
+
+            .nav-links {
+
+                width: 100%;
+
+                gap: 16px;
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .container {
+
+                padding: 40px 18px 55px;
+
+            }
+
+
+            .page-header h2 {
+
+                font-size: 34px;
+
+            }
+
+
+            .form-card {
+
+                padding: 23px;
+
+                border-radius: 20px;
+
+            }
+
+
+            .form-row {
+
+                grid-template-columns: 1fr;
+
+                gap: 0;
+
+            }
+
+
+            .buttons {
+
+                flex-direction: column;
+
+            }
+
+
+            .save-button,
+            .cancel-button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ♡
+            </div>
+
+            <h1>
+                my little budget
+            </h1>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('transactions_page') }}">
+                Transactions
+            </a>
+
+            <a
+                href="{{ url_for('add_transaction_page') }}"
+                class="active"
+            >
+                Add Transaction
+            </a>
+
+            <a href="{{ url_for('budget_page') }}">
+                Budget
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="container">
+
+
+        <!-- Header -->
+
+        <section class="page-header">
+
+            <div class="small-label">
+                Keep it recorded
+            </div>
+
+            <h2>
+                Add transaction.
+            </h2>
+
+            <p>
+                Keep track of the little things your money goes towards.
+            </p>
+
+        </section>
+
+
+        <!-- Form -->
+
+        <section class="form-card">
+
+
+            <form method="POST">
+
+
+                <!-- Transaction Type -->
+
+                <div class="form-group">
+
+                    <label>
+                        Transaction type
+                    </label>
+
+
+                    <div class="type-options">
+
+
+                        <div class="type-option">
+
+                            <input
+                                type="radio"
+                                id="expense"
+                                name="transaction_type"
+                                value="Expense"
+                                checked
+                            >
+
+                            <label
+                                class="type-label"
+                                for="expense"
+                            >
+                                ↓ Expense
+                            </label>
+
+                        </div>
+
+
+                        <div class="type-option">
+
+                            <input
+                                type="radio"
+                                id="income"
+                                name="transaction_type"
+                                value="Income"
+                            >
+
+                            <label
+                                class="type-label"
+                                for="income"
+                            >
+                                ↑ Income
+                            </label>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- Amount + Category -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="amount">
+                            Amount (Rs.)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="amount"
+                            name="amount"
+                            min="0.01"
+                            step="0.01"
+                            placeholder="e.g. 500"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <select
+                            id="category"
+                            name="category"
+                            required
+                        >
+
+                            <option value="Food">
+                                Food
+                            </option>
+
+                            <option value="Transport">
+                                Transport
+                            </option>
+
+                            <option value="Shopping">
+                                Shopping
+                            </option>
+
+                            <option value="Bills">
+                                Bills
+                            </option>
+
+                            <option value="Education">
+                                Education
+                            </option>
+
+                            <option value="Entertainment">
+                                Entertainment
+                            </option>
+
+                            <option value="Healthcare">
+                                Healthcare
+                            </option>
+
+                            <option value="Salary">
+                                Salary
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Date -->
+
+                <div class="form-group">
+
+                    <label for="date">
+                        Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Description -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="What was this transaction for?"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="buttons">
+
+                    <button
+                        class="save-button"
+                        type="submit"
+                    >
+                        Save transaction
+                    </button>
+
+
+                    <a
+                        class="cancel-button"
+                        href="{{ url_for('transactions_page') }}"
+                    >
+                        Cancel
+                    </a>
+
+                </div>
+
+
+                <div class="form-note">
+
+                    Your transaction will be saved securely and will
+                    automatically update your dashboard, spending charts
+                    and monthly budget.
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+
+
+    <script>
+
+        // Automatically select today's date
+
+        const dateInput =
+            document.getElementById("date");
+
+        if (!dateInput.value) {
+
+            const today =
+                new Date();
+
+            const year =
+                today.getFullYear();
+
+            const month =
+                String(
+                    today.getMonth() + 1
+                ).padStart(2, "0");
+
+            const day =
+                String(
+                    today.getDate()
+                ).padStart(2, "0");
+
+            dateInput.value =
+                `${year}-${month}-${day}`;
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
